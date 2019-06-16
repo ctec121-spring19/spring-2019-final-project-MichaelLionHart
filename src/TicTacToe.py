@@ -2,8 +2,11 @@
 #
 # 
 
-import Controller
+from Controller import *
 
 def main():
-    # delete and enter your code here
+    c = Controller()
+    c.play()
     pass
+
+main()
