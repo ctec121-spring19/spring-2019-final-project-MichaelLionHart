@@ -13,8 +13,8 @@ class Model:
         if there are three in a row.  It would also tell if there is a draw - i.e. no 
         winner but all cells are full. '''
 
-    def __init__(self):
-        self.v = View()
+    def __init__(self, view):
+        self.v = view
 
     # function to validate mouse-click/cell number (check if empty)
     def winner(self):
@@ -44,8 +44,8 @@ class Model:
 
     # function to check if board is full - return True or False to Controller
     def boardFull(self):
-        if 'X' or 'O' in gameBoard:
-            return False
+        if 'X' or 'O' in (gameBoard[0] and gameBoard[1] and gameBoard[2] and gameBoard[3] and gameBoard[4] and gameBoard[5] and gameBoard[6] and gameBoard[7] and gameBoard[8]):
+            return True
 
     def returnGameBoard(self, cell):
         if cell not in gameBoard:
@@ -57,28 +57,28 @@ class Model:
     def populateBoard(self, cell, symbol):
         if cell == 'cell0':
             gameBoard[0] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         elif cell == 'cell1':
             gameBoard[1] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         elif cell == 'cell2':
             gameBoard[2] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         elif cell == 'cell3':
             gameBoard[3] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         elif cell == 'cell4':
             gameBoard[4] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         elif cell == 'cell5':
             gameBoard[5] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         elif cell == 'cell6':
             gameBoard[6] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         elif cell == 'cell7':
             gameBoard[7] = symbol
-            self.v.draw(symbol)
+            self.v.draw(cell, symbol)
         pass
 
 def ModelTest():

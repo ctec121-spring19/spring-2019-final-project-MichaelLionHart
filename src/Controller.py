@@ -9,7 +9,7 @@ class Controller:
 
     def __init__(self):
         self.v = View()
-        self.m = Model()
+        self.m = Model(self.v)
 
     def play(self):
         done = False
@@ -25,29 +25,36 @@ class Controller:
 
     # outer loop that just says play a game and do you want to play another
     def playAGame(self):
-        self.v.grid()
+        #self.v.grid()
         done = False
         personA_turn = True
         self.v.message("Player A's Turn")
         while not done:
-            click = self.v.getClickPoint()
-            cell = self.v.convertToCell(click)
+            #click = self.v.getClickPoint()
+            #cell = self.v.convertToCell(click)
+            cell = self.v.getClickPoint()
+            print('get click point finished: ', cell)
             # determine if cell is already in gameBoard (True if not)
             if self.m.returnGameBoard(cell) is True:
                 if personA_turn is True:
                     self.m.populateBoard(cell, 'X')
                 else:
+                    print('person b turn')
                     self.m.populateBoard(cell, 'O')
             else:
                 self.v.message("please choose a valid cell")
             # is there a winner?
             if self.m.winner() is True:
                 done = True
+                print('winner')
                 self.v.message("Player A wins!")
-            else:
-                done = True
-                self.v.message("It is a draw")
+            # elif self.m.boardFull() is True:
+            #     done = True
+            #     print('draw')
+            #     self.v.message("It is a draw")
             personA_turn = False
+            # erase messages
+            self.v.message('')
             self.v.message("Player B's Turn")
 
     # inner loop gets mouse click - cell number from view, then validates it by calling
@@ -61,7 +68,8 @@ class Controller:
         pass
 
 def ControllerTest():
-    # delete and enter your code here
+    c = Controller()
+    c.play()
     pass
 
 if __name__ == "__main__":

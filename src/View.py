@@ -10,6 +10,7 @@ class View:
     def __init__(self):
         # Creating graphics window
         self.win = GraphWin("Mike's Tic Tac Toe Game", 600, 600)
+        self.grid()
 
     # function for grid
     def grid(self):
@@ -28,9 +29,11 @@ class View:
         Line(Point(1, 3), Point(7, 3)).draw(self.win)        
         
     # function to return coords when clicked
+    # return a cell number
     def getClickPoint(self):
         p = self.win.getMouse()
-        return (p.getX(), p.getY())
+        return self.convertToCell(p)
+        #return (p.getX(), p.getY())
 
     def entry(self):
         Text(Point(6, 7.8), "Continue? (enter 'y' or 'n' in field)")
@@ -43,37 +46,59 @@ class View:
         Text(Point(4, 7.5), message).draw(self.win)
 
     # function to draw X or O
-    def draw(self, symbol):
-        p = self.win.getMouse()
-        px = p.getX()
-        py = p.getY()
+    def draw(self, cell, symbol):
+        #p = self.win.getMouse()
+        #px = p.getX()
+        #py = p.getY()
+
+        # convert cell to coordinate.
+        if cell == 'cell0':
+            print(cell)
+            coordinate = Point(2, 2)
+        elif cell == 'cell1':
+            print(cell)
+            coordinate = Point(4, 2)
+        elif cell == 'cell2':
+            print(cell)
+            coordinate = Point(6, 2)
+        elif cell == 'cell3':
+            print(cell)
+            coordinate = Point(2, 4)
+        elif cell == 'cell4':
+            print(cell)
+            coordinate = Point(4, 4)
+        elif cell == 'cell5':
+            print(cell)
+            coordinate = Point(6, 4)
+        elif cell == 'cell6':
+            print(cell)
+            coordinate = Point(2, 6)
+        elif cell == 'cell7':
+            print(cell)
+            coordinate = Point(4, 6)
+        elif cell == 'cell8':
+            print(cell)
+            coordinate = Point(6, 6)
+        else:
+            self.message("Please choose a valid cell")
+        # your code here.
+
         # Line(Point(px - .5, py - .5), Point(px + .5, py + .5)).draw(self.win)
         # Line(Point(px - .5, py + .5), Point(px + .5, py - .5)).draw(self.win)
-        message = Text(Point(px, py), symbol)
+        message = Text(coordinate, symbol)
         message.setSize(36)
         message.draw(self.win)
         self.win.getMouse()
 
-    # # function to draw an O
-    # def drawO(self):
-    #     p = self.win.getMouse()
-    #     px = p.getX()
-    #     py = p.getY()
-    #     # Line(Point(px - .5, py - .5), Point(px + .5, py + .5)).draw(self.win)
-    #     # Line(Point(px - .5, py + .5), Point(px + .5, py - .5)).draw(self.win)
-    #     message = Text(Point(px, py), "O")
-    #     message.setSize(36)
-    #     message.draw(self.win)
-    #     self.win.getMouse()
-
     # function to convert mouse click to cell number
     def convertToCell(self, click):
-        pX = int(click.getX())
-        pY = int(click.getY())
+        print(click)
+        pX = round(click.getX())
+        pY = round(click.getY())
         print(pX)
         print(pY)
+        
         if 1 <= pX <= 3 and 1 <= pY <= 3:
-            print('cell)')
             return "cell0"
         elif 3 <= pX <= 5 and 1 <= pY <= 3:
             return "cell1"
@@ -108,7 +133,9 @@ def ViewTest():
     # v.drawO()
     # v.message("Player A's Turn")
     # v.convertToCell()
-    pass
+
+    input()
+
     
 if __name__ == "__main__":
     ViewTest()
