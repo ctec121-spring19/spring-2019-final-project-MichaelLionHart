@@ -10,7 +10,13 @@ class View:
     def __init__(self):
         # Creating graphics window
         self.win = GraphWin("Mike's Tic Tac Toe Game", 600, 600)
+        # creating a way to display messages
+        self.message = Text(Point(4, 7.5), '')
+        # drawing message
+        self.message.draw(self.win)
+        # creating grid
         self.grid()
+
 
     # function for grid
     def grid(self):
@@ -36,14 +42,15 @@ class View:
         #return (p.getX(), p.getY())
 
     def entry(self):
-        Text(Point(6, 7.8), "Continue? (enter 'y' or 'n' in field)")
+        Text(Point(6, 7.8), "Continue? (enter 'y' or 'n' in field)").draw(self.win)
         inputText = Entry(Point(6, 7.5), 2).draw(self.win)
+        self.win.getMouse()
         if inputText.getText() == 'y':
             return True
 
     # function to display the appropriate message
-    def message(self, message):
-        Text(Point(4, 7.5), message).draw(self.win)
+    def setMessage(self, message):
+        self.message.setText(message)
 
     # function to draw X or O
     def draw(self, cell, symbol):
@@ -80,15 +87,11 @@ class View:
             print(cell)
             coordinate = Point(6, 6)
         else:
-            self.message("Please choose a valid cell")
-        # your code here.
+            self.setMessage("Please choose a valid cell")
 
-        # Line(Point(px - .5, py - .5), Point(px + .5, py + .5)).draw(self.win)
-        # Line(Point(px - .5, py + .5), Point(px + .5, py - .5)).draw(self.win)
         message = Text(coordinate, symbol)
         message.setSize(36)
         message.draw(self.win)
-        self.win.getMouse()
 
     # function to convert mouse click to cell number
     def convertToCell(self, click):
@@ -119,15 +122,9 @@ class View:
         else: 
             return "invalid"
 
-    def playerA(self):
-        Text(Point(4, 7.5), "Player A's Turn").draw(self.win)
-
-    def playerB(self):
-        Text(Point(4, 7.5), "Player B's Turn").draw(self.win)
-
-
 def ViewTest():
     v = View()
+    v.setMessage("test")
     # v.getClickPoint()
     # v.drawX()
     # v.drawO()

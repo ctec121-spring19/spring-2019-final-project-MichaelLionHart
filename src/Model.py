@@ -4,6 +4,7 @@
 
 from View import *
 
+# container to hold gameboard values (X's and O's)
 gameBoard = ['', '', '', '', '', '', '', '', '']
 
 class Model:
@@ -44,12 +45,30 @@ class Model:
 
     # function to check if board is full - return True or False to Controller
     def boardFull(self):
-        if 'X' or 'O' in (gameBoard[0] and gameBoard[1] and gameBoard[2] and gameBoard[3] and gameBoard[4] and gameBoard[5] and gameBoard[6] and gameBoard[7] and gameBoard[8]):
+        container = []
+        for i in gameBoard:
+            if i == 'X' or i == 'O':
+                container.append('N')
+        print('length of container is: ', len(container))
+        if len(container) == 9:
             return True
 
+    # function to determine if specified cell is in the gameboard already
     def returnGameBoard(self, cell):
         if cell not in gameBoard:
             return True
+
+    # function to clear the board so game play can resume
+    def clearBoard(self):
+        gameBoard[0] = ''
+        gameBoard[1] = ''
+        gameBoard[2] = ''
+        gameBoard[3] = ''
+        gameBoard[4] = ''
+        gameBoard[5] = ''
+        gameBoard[6] = ''
+        gameBoard[7] = ''
+        gameBoard[8] = ''
 
 
     # function to put an X or O in the cell, based on controller call, then 
@@ -78,6 +97,9 @@ class Model:
             self.v.draw(cell, symbol)
         elif cell == 'cell7':
             gameBoard[7] = symbol
+            self.v.draw(cell, symbol)
+        elif cell == 'cell8':
+            gameBoard[8] = symbol
             self.v.draw(cell, symbol)
         pass
 

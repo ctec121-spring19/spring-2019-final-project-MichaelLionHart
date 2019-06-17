@@ -15,8 +15,9 @@ class Controller:
         done = False
         while not done:
             self.playAGame()
-            
+            # ask for input from user to determine whether to keep playing
             self.v.entry()
+            # if user enters 'y,' continue
             if self.v.entry() is True:
                 done = False
             else:
@@ -25,47 +26,42 @@ class Controller:
 
     # outer loop that just says play a game and do you want to play another
     def playAGame(self):
-        #self.v.grid()
         done = False
         personA_turn = True
-        self.v.message("Player A's Turn")
+        self.v.setMessage("Player A's Turn")
         while not done:
-            #click = self.v.getClickPoint()
-            #cell = self.v.convertToCell(click)
             cell = self.v.getClickPoint()
             print('get click point finished: ', cell)
             # determine if cell is already in gameBoard (True if not)
             if self.m.returnGameBoard(cell) is True:
+                # if it's player A's turn, print 'X' and populate gameBoard with an 'X'
                 if personA_turn is True:
                     self.m.populateBoard(cell, 'X')
+                # if not, print 'O' and populate gameBoard with an 'O'
                 else:
-                    print('person b turn')
                     self.m.populateBoard(cell, 'O')
+            # if cell is already taken, tell user to pick another cell
             else:
-                self.v.message("please choose a valid cell")
+                self.v.setMessage("please choose a valid cell")
             # is there a winner?
             if self.m.winner() is True:
+                # if so, print winning message and end game
+                self.v.setMessage("Winner!")
                 done = True
-                print('winner')
-                self.v.message("Player A wins!")
-            # elif self.m.boardFull() is True:
-            #     done = True
-            #     print('draw')
-            #     self.v.message("It is a draw")
-            personA_turn = False
-            # erase messages
-            self.v.message('')
-            self.v.message("Player B's Turn")
+            # is board full?
+            if self.m.boardFull() is True:
+                self.v.setMessage("It is a draw")
+                done = True
+            # is it player A's turn?
+            if personA_turn is True:
+                personA_turn = False
+                self.v.setMessage("Player B's Turn")
+            else:
+                personA_turn = True
+                self.v.setMessage("Player A's Turn")              
 
-    # inner loop gets mouse click - cell number from view, then validates it by calling
-    # the model.  It's valid if the cell is empty.  If it's valid/empty, it tells model
-    # to put an X or O in the cell
-
-    # ask model if there is a winner or a draw, if not, switch players and continue
-    # if there is a winner or a draw, put up approprate message and exit the inner loop method
-
-    # outer loop asks players if they want to play again or not
         pass
+    
 
 def ControllerTest():
     c = Controller()
