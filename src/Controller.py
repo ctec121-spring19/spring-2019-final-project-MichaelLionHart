@@ -16,7 +16,7 @@ class Controller:
         while not done:
             self.playAGame()
             # ask for input from user to determine whether to keep playing
-            # if user enters 'y,' continue
+            # if user clicks, continue
             self.v.setMessage('Click to start a new game')
             x = self.v.click()
             if x is True:
