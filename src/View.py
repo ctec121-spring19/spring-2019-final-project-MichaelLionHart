@@ -41,12 +41,16 @@ class View:
         return self.convertToCell(p)
         #return (p.getX(), p.getY())
 
+    def click(self):
+        x = self.win.getMouse()
+        if x is True:
+            return True
+
     def entry(self):
         Text(Point(6, 7.8), "Continue? (enter 'y' or 'n' in field)").draw(self.win)
         inputText = Entry(Point(6, 7.5), 2).draw(self.win)
         self.win.getMouse()
-        if inputText.getText() == 'y':
-            return True
+        return inputText.getText()
 
     # function to display the appropriate message
     def setMessage(self, message):

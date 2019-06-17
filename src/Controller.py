@@ -16,9 +16,10 @@ class Controller:
         while not done:
             self.playAGame()
             # ask for input from user to determine whether to keep playing
-            self.v.entry()
             # if user enters 'y,' continue
-            if self.v.entry() is True:
+            self.v.setMessage('Click to start a new game')
+            x = self.v.click()
+            if x is True:
                 done = False
             else:
                 done = True
@@ -46,6 +47,7 @@ class Controller:
             # is there a winner?
             if self.m.winner() is True:
                 # if so, print winning message and end game
+                print('winner')
                 self.v.setMessage("Winner!")
                 done = True
             # is board full?
